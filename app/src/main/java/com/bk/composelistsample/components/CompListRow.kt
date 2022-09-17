@@ -1,6 +1,7 @@
 package com.bk.composelistsample.components
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -22,14 +23,15 @@ import com.bk.composelistsample.ui.theme.ComposeListSampleTheme
 @Composable
 fun CompListRowPreview() {
   ComposeListSampleTheme {
-    CompListRow("Android", Modifier)
+    CompListRow(name = "Android", onItemClick = {})
   }
 }
 
 @Composable
-fun CompListRow(name: String, modifier: Modifier = Modifier) {
+fun CompListRow(name: String, onItemClick: (String) -> Unit, modifier: Modifier = Modifier) {
   Row(
-    modifier
+    Modifier
+      .clickable(onClick = { onItemClick(name) })
       .fillMaxWidth()
       .height(48.dp)
       .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)

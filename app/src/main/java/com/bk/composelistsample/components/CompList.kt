@@ -15,16 +15,18 @@ import com.bk.composelistsample.ui.theme.ComposeListSampleTheme
 @Composable
 fun CompListPreview() {
   ComposeListSampleTheme {
-    CompList(arrayOf("a", "b").toList())
+    CompList(arrayOf("a", "b").toList(), onItemClick = {})
   }
 }
 
 @Composable
-fun CompList(listItems: List<String>, modifier: Modifier = Modifier) {
+fun CompList(
+  listItems: List<String>, onItemClick: (String) -> Unit, modifier: Modifier = Modifier
+) {
   LazyColumn(modifier = modifier, content = {
     listItems.forEach {
       item {
-        CompListRow(name = it)
+        CompListRow(name = it, onItemClick = onItemClick)
         ListItemDivider()
       }
     }
