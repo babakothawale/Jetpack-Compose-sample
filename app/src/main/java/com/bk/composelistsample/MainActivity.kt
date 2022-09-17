@@ -6,12 +6,13 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import com.bk.composelistsample.ui.basiclist.ListScreen
 import com.bk.composelistsample.ui.theme.ComposeListSampleTheme
 
+/**
+ * Very basic-vanilla example of list in Compose. This does not include even AppBar component
+ */
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -19,22 +20,9 @@ class MainActivity : ComponentActivity() {
       ComposeListSampleTheme {
         // A surface container using the 'background' color from the theme
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-          Greeting("Android")
+          ListScreen(List(20) { i -> "$i" })
         }
       }
     }
-  }
-}
-
-@Composable
-fun Greeting(name: String) {
-  Text(text = "Hello $name!")
-}
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-  ComposeListSampleTheme {
-    Greeting("Android")
   }
 }
