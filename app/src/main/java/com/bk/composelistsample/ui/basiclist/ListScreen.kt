@@ -16,10 +16,10 @@ fun ListScreenPreview() {
 }
 
 /**
- * This sample to just to get the understanding
- * and starting unlearning the existing ways of coding
+ * This sample is to just to get the understanding
+ * and start unlearning the existing ways of coding
  * and start thinking in Compose way.
- * This is not the complete code to use in production code
+ * This is not the complete code to use in production
  */
 @Composable
 fun ListScreen(

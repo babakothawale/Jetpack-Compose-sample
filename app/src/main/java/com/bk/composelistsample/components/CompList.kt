@@ -1,6 +1,6 @@
 package com.bk.composelistsample.components
 
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
@@ -23,20 +23,24 @@ fun CompListPreview() {
 fun CompList(
   listItems: List<String>, onItemClick: (String) -> Unit, modifier: Modifier = Modifier
 ) {
-  LazyColumn(modifier = modifier, content = {
-    listItems.forEach {
-      item {
-        CompListRow(name = it, onItemClick = onItemClick)
-        ListItemDivider()
+  LazyColumn(
+    modifier = modifier,
+    contentPadding = PaddingValues(horizontal = 12.dp),
+    //verticalArrangement = Arrangement.spacedBy(12.dp),
+    content = {
+      listItems.forEach {
+        item {
+          CompListRow(name = it, onItemClick = onItemClick)
+          ListItemDivider()
+        }
       }
-    }
-  })
+    })
 }
 
 @Composable
 private fun ListItemDivider() {
   Divider(
-    modifier = Modifier.padding(horizontal = 14.dp),
+    //modifier = Modifier.padding(horizontal = 14.dp),
     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.08f)
   )
 }

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -33,8 +34,9 @@ fun CompListRow(name: String, onItemClick: (String) -> Unit, modifier: Modifier 
     Modifier
       .clickable(onClick = { onItemClick(name) })
       .fillMaxWidth()
-      .height(48.dp)
-      .padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+      .height(48.dp),
+    verticalAlignment = Alignment.CenterVertically
+    //.padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
   ) {
     ItemImage(modifier = Modifier.padding(end = 16.dp))
     Text(
