@@ -2,6 +2,7 @@ package com.bk.composelistsample.components
 
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -15,24 +16,24 @@ import com.bk.composelistsample.ui.theme.ComposeListSampleTheme
 @Composable
 fun CompListPreview() {
   ComposeListSampleTheme {
-    CompList(arrayOf("a", "b").toList(), onItemClick = {})
+    CompList(arrayOf("a", "b").toList(), onItemClick = {}, {})
   }
 }
 
 @Composable
 fun CompList(
-  listItems: List<String>, onItemClick: (String) -> Unit, modifier: Modifier = Modifier
+  listItems: List<String>, onItemClick: (String) -> Unit,
+  onDeleteClick: (String) -> Unit,
+  modifier: Modifier = Modifier
 ) {
   LazyColumn(
     modifier = modifier,
     contentPadding = PaddingValues(horizontal = 12.dp),
     //verticalArrangement = Arrangement.spacedBy(12.dp),
     content = {
-      listItems.forEach {
-        item {
-          CompListRow(name = it, onItemClick = onItemClick)
-          ListItemDivider()
-        }
+      items(listItems, key = { it }) {
+        CompListRow(name = it, onItemClick = onItemClick, onDeleteClick = onDeleteClick)
+        ListItemDivider()
       }
     })
 }

@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,25 +25,33 @@ import com.bk.composelistsample.ui.theme.ComposeListSampleTheme
 @Composable
 fun CompListRowPreview() {
   ComposeListSampleTheme {
-    CompListRow(name = "Android", onItemClick = {})
+    CompListRow(name = "Android", onItemClick = {}, {})
   }
 }
 
 @Composable
-fun CompListRow(name: String, onItemClick: (String) -> Unit, modifier: Modifier = Modifier) {
+fun CompListRow(
+  name: String,
+  onItemClick: (String) -> Unit,
+  onDeleteClick: (String) -> Unit,
+  modifier: Modifier = Modifier
+) {
   Row(
     Modifier
       .clickable(onClick = { onItemClick(name) })
       .fillMaxWidth()
       .height(48.dp),
-    verticalAlignment = Alignment.CenterVertically
+    verticalAlignment = Alignment.CenterVertically,
     //.padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
   ) {
     ItemImage(modifier = Modifier.padding(end = 16.dp))
     Text(
       text = "${stringResource(id = R.string.hello)} $name",
-      modifier = Modifier.fillMaxWidth()
+      Modifier.padding(end = 16.dp)
     )
+    Button(onClick = { onDeleteClick(name) }) {
+      Text(text = stringResource(id = R.string.delete))
+    }
   }
 }
 

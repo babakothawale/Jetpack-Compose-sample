@@ -3,15 +3,24 @@ package com.bk.composelistsample
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ListViewModel : ViewModel() {
   fun onItemClick(name: String) {
     Log.d("ListViewModel", "onItemClick: $name")
+  }
+
+  fun onDeleteClick(name: String) {
+    Log.d("ListViewModel", "onDeleteClick: $name")
+    listViewModelState.update { state ->
+      state.copy(items = state.items?.filter { it != name })
+    }
   }
 
   private val listViewModelState = MutableStateFlow(ListState(isLoading = true))
@@ -24,9 +33,17 @@ class ListViewModel : ViewModel() {
 
   init {
     viewModelScope.launch {
-      listViewModelState.value =
-        listViewModelState.value.copy(isLoading = false, items = List(50) { i -> "$i" })
+      listViewModelState.value = generateData()
     }
+  }
+
+  /**
+   * To test empty uncomment the empty list copy state
+   */
+  private suspend fun generateData(): ListState {
+    delay(3000)
+    return listViewModelState.value.copy(isLoading = false, items = MutableList(50) { i -> "$i" })
+//    return listViewModelState.value.copy(isLoading = false, items = arrayListOf())
   }
 }
 
