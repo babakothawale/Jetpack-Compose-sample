@@ -6,8 +6,8 @@ Compose has deep learning curve. Thinking in Compose can be little bit difficult
 Offcource, there are bunch of tutorial, video, codelab, pathways on Andorid developer docs to start with.
 
 Here in this example, I have maintained incremental branches names from 01, 02,.. as I go further learning the compose...
-1. 01BasicList
-2. 02BasicList_ItemClick
-3. 03BasicList_ViewUpdate
+1. 01basiclist
+2. 02basiclist_item_click
+3. 03basiclist_view_update
 
 Hope this will be useful!
