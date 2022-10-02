@@ -12,16 +12,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class ListViewModel : ViewModel() {
-  fun onItemClick(name: String) {
-    Log.d("ListViewModel", "onItemClick: $name")
-  }
-
-  fun onDeleteClick(name: String) {
-    Log.d("ListViewModel", "onDeleteClick: $name")
-    listViewModelState.update { state ->
-      state.copy(items = state.items?.filter { it != name })
-    }
-  }
 
   private val listViewModelState = MutableStateFlow(ListState(isLoading = true))
 
@@ -32,7 +22,14 @@ class ListViewModel : ViewModel() {
   )
 
   init {
+    refresh()
+  }
+
+  fun refresh() {
     viewModelScope.launch {
+      listViewModelState.update {
+        it.copy(isLoading = true, error = "", items = null)
+      }
       listViewModelState.value = generateData()
     }
   }
@@ -43,7 +40,23 @@ class ListViewModel : ViewModel() {
   private suspend fun generateData(): ListState {
     delay(3000)
     return listViewModelState.value.copy(isLoading = false, items = MutableList(50) { i -> "$i" })
+    //Error state
+//    return listViewModelState.value.copy(
+//      isLoading = false, items = arrayListOf(), error = "Error while loading data!"
+//    )
+    //Empty state
 //    return listViewModelState.value.copy(isLoading = false, items = arrayListOf())
+  }
+
+  fun onItemClick(name: String) {
+    Log.d("ListViewModel", "onItemClick: $name")
+  }
+
+  fun onDeleteClick(name: String) {
+    Log.d("ListViewModel", "onDeleteClick: $name")
+    listViewModelState.update { state ->
+      state.copy(items = state.items?.filter { it != name })
+    }
   }
 }
 

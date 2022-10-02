@@ -19,7 +19,8 @@ fun ListScreenContentPreview() {
 fun ListScreenContent(
   uiState: UiState,
   onItemClick: (String) -> Unit,
-  onDeleteClick: (String) -> Unit, modifier: Modifier = Modifier
+  onDeleteClick: (String) -> Unit,
+  modifier : Modifier = Modifier,
 ) {
   LoadingScreenContent(
     isEmpty = when (uiState) {

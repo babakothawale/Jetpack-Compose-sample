@@ -37,19 +37,23 @@ fun CompListRow(
   modifier: Modifier = Modifier
 ) {
   Row(
-    Modifier
+    modifier
       .clickable(onClick = { onItemClick(name) })
       .fillMaxWidth()
-      .height(48.dp),
+      //.padding(8.dp)
+      //.height(48.dp)
+        ,
     verticalAlignment = Alignment.CenterVertically,
-    //.padding(top = 8.dp, bottom = 8.dp, start = 8.dp, end = 8.dp)
+
   ) {
     ItemImage(modifier = Modifier.padding(end = 16.dp))
     Text(
       text = "${stringResource(id = R.string.hello)} $name",
-      Modifier.padding(end = 16.dp)
+      Modifier.weight(1f)
+      //.padding(end = 16.dp)
     )
-    Button(onClick = { onDeleteClick(name) }) {
+    Button(
+      onClick = { onDeleteClick(name) }) {
       Text(text = stringResource(id = R.string.delete))
     }
   }

@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">ComposeListSample</string>
+    <string name="app_name">Compose List Sample</string>
     <string name="hello">Hello</string>
     <string name="delete">Delete</string>
     <string name="empty_list">No items to show!</string>
+    <string name="retry">Retry</string>
 </resources>
