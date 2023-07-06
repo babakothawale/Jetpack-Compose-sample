@@ -14,3 +14,11 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ComposeListSample"
 include ':app'
+include ':core-ui'
+include ':core-component'
+include ':core-model'
+include ':core-network'
+include ':database'
+include ':feature-books'
+include ':feature-book-details'
+include ':data'
