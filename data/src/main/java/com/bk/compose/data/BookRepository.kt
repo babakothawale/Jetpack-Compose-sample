@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface BookRepository {
     fun loadBooks(): Flow<List<Book>>
-    suspend fun loadBookDetail(bookId: String): BookDetails?
+    fun loadBookDetail(bookId: String): Flow<BookDetails>
 }
