@@ -8,5 +8,11 @@ Here in this example, I have maintained incremental branches names from 01, 02,.
 1. 01basiclist
 2. 02basiclist_item_click
 3. 03basiclist_view_update
+4. arch - branch has the modern Android app multi-module architecture.
+
+What is covered.
+1. Jetpack compose
+2. Hilt DI
+3. Modern Multi-Module design
 
 Hope this will be useful!
