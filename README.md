@@ -1,5 +1,4 @@
-# ComposeListSample
-Create List in Compose
+# Jetpack compose sample
 
 Compose has deep learning curve. Thinking in Compose can be little bit difficult for the developers who not yet started with Compose and coding in exiting View based apps. I have started with List.
 
