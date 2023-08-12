@@ -5,11 +5,11 @@ plugins {
 
 android {
   namespace 'com.bk.compose.core.ui'
-  compileSdk 33
+  compileSdk 34
 
   defaultConfig {
     minSdk 21
-    targetSdk 33
+    targetSdk 34
 
     testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     consumerProguardFiles "consumer-rules.pro"
@@ -38,11 +38,11 @@ android {
 }
 
 dependencies {
-  var compose_version = "1.4.3"
+  var compose_version = '1.5.0'
   implementation 'androidx.core:core-ktx:1.10.1'
   implementation 'androidx.appcompat:appcompat:1.6.1'
-  implementation 'androidx.compose.material3:material3:1.1.0'
-  debugImplementation "androidx.compose.ui:ui-tooling:1.4.3"
+  implementation 'androidx.compose.material3:material3:1.1.1'
+  debugImplementation 'androidx.compose.ui:ui-tooling:1.5.0'
   implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
   implementation "androidx.compose.ui:ui:$compose_version"
 
