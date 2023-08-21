@@ -1,5 +1,6 @@
 package com.bk.feature.books
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bk.compose.data.BookRepository
@@ -26,6 +27,11 @@ class ListViewModel @Inject constructor(private val bookRepository: BookReposito
     }
 
     fun onDeleteClick(book: Book) {
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("ListViewModel", "onCleared: $this")
     }
 }
 

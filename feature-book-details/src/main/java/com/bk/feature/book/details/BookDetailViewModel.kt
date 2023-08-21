@@ -1,5 +1,6 @@
 package com.bk.feature.book.details
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bk.compose.data.BookRepository
@@ -30,6 +31,11 @@ class BookDetailViewModel @Inject constructor(private val bookRepository: BookRe
                 _bookDetailStateFlow.value = BookDetailUiState(isLoading = false, bookDetail = it)
             }
         }
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        Log.d("BookDetailViewModel", "onCleared: $this")
     }
 }
 
