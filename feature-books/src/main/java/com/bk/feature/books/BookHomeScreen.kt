@@ -2,14 +2,10 @@ package com.bk.feature.books
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.SnackbarDuration
-import androidx.compose.material3.SnackbarDuration.Short
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
-import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -20,42 +16,48 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.bk.compose.core.component.HomeScreenTopBarActions
 import com.bk.compose.core.component.ListSampleSnackBarHost
-import com.bk.compose.core.component.NavigationIcon
-import com.bk.compose.core.component.Title
+import com.bk.compose.core.component.MenuItem
+import com.bk.compose.core.component.SampleAppBar
+import com.bk.compose.core.component.prepareAppMenus
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BookHomeScreen(
     modifier: Modifier,
     snackBarHostState: SnackbarHostState = remember { SnackbarHostState() },
     viewModel: ListViewModel = hiltViewModel(),
+    onMenuOptionSelected: (MenuItem) -> Unit,
     navigateToBookDetail: (bookId: String) -> Unit
 ) {
 
     val uiState by viewModel.uiState.collectAsState()
     val coroutineScope: CoroutineScope = rememberCoroutineScope()
     Scaffold(snackbarHost = { ListSampleSnackBarHost(snackBarHostState) }, topBar = {
-        TopAppBar(colors = TopAppBarDefaults.smallTopAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
-        ), title = { Title() }, navigationIcon = {
-            NavigationIcon({ })
-        }, actions = {
-            HomeScreenTopBarActions(onAddPhotoAction = {
-                coroutineScope.launch {
-                    snackBarHostState.showSnackbar(
-                        "Add photo clicked", "OK", duration = Short
-                    )
-                }
-            }, onAddAction = {
-                coroutineScope.launch {
-                    snackBarHostState.showSnackbar("Add clicked", "OK")
-                }
-            })
-        })
+        SampleAppBar(
+            title = "Books",
+            overflowMenuItems = prepareAppMenus(),
+            onOptionSelected = onMenuOptionSelected
+        )
+//        TopAppBar(colors = TopAppBarDefaults.smallTopAppBarColors(
+//            containerColor = MaterialTheme.colorScheme.primaryContainer
+//        ), title = { Title() }, navigationIcon = {
+//            NavigationIcon({ })
+//        }, actions = {
+////            TopBarActions(onAddPhotoAction = {
+////                coroutineScope.launch {
+////                    snackBarHostState.showSnackbar(
+////                        "Add photo clicked", "OK", duration = Short
+////                    )
+////                }
+////            }, onAddAction = {
+////                coroutineScope.launch {
+////                    snackBarHostState.showSnackbar("Add clicked", "OK")
+////                }
+////            },
+////                openWebUrl = openWebUrl
+////            )
+//        })
     }, modifier = modifier
     ) {
         ListScreenContent(modifier = Modifier.padding(it),
@@ -72,7 +74,9 @@ fun BookHomeScreen(
 
         LaunchedEffect(errorMessage, retryMessageText, snackBarHostState) {
             val snackbarResult = snackBarHostState.showSnackbar(
-                message = errorMessage, actionLabel = retryMessageText, duration = SnackbarDuration.Long
+                message = errorMessage,
+                actionLabel = retryMessageText,
+                duration = SnackbarDuration.Long
             )
             if (snackbarResult == SnackbarResult.ActionPerformed) {
                 onRefreshState()

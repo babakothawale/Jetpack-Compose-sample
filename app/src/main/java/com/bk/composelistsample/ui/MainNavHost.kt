@@ -7,17 +7,30 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.bk.compose.core.component.MenuItem
+import com.bk.compose.core.component.AppMenus
+import com.bk.composelistsample.ui.about.AboutScreen
+import com.bk.composelistsample.ui.settings.SettingScreen
+import com.bk.composelistsample.ui.webview.WebViewScreen
 import com.bk.feature.book.details.BookDetailScreen
 import com.bk.feature.books.BookHomeScreen
 
 @Composable
 fun MainNavHost(
-    modifier: Modifier, navController: NavHostController, startDestination: Destinations = Destinations.BooksHome
+    modifier: Modifier,
+    navController: NavHostController,
+    startDestination: Destinations = Destinations.BooksHome
 ) {
-    NavHost(navController = navController, modifier = modifier, startDestination = startDestination.route) {
+    NavHost(
+        navController = navController,
+        modifier = modifier,
+        startDestination = startDestination.route
+    ) {
         composable(Destinations.BooksHome.route) {
-            BookHomeScreen(Modifier) {
-                navController.navigate(Destinations.BookDetails.routeWithParam(it))
+            BookHomeScreen(
+                Modifier,
+                onMenuOptionSelected = { onOptionsItemSelected(it, navController) }) {
+                navController.navigate(Destinations.BookDetails.route + "/$it")
             }
         }
         composable(Destinations.BookDetails.routeWithParam) {
@@ -25,14 +38,59 @@ fun MainNavHost(
                 navController.navigateUp()
             })
         }
+        composable(
+            Destinations.WebScreen.routeWithParam,
+            arguments = listOf(navArgument(name = "url") {
+                type = NavType.StringType
+            })
+        ) {
+            val url = it.arguments?.getString("url") ?: ""
+            WebViewScreen(url = url, onBackPressed = {
+                navController.navigateUp()
+            })
+        }
+        composable(Destinations.Settings.route) {
+            SettingScreen(navigateUp = {
+                navController.navigateUp()
+            })
+        }
+
+        composable(Destinations.About.route) {
+            AboutScreen(navigateUp = {
+                navController.navigateUp()
+            })
+        }
+
     }
 }
 
-enum class Destinations(val route: String, val routeWithParam: String) {
-    BooksHome("book", "book"),
-    BookDetails("bookDetails", "bookDetails/{bookId}")
+private fun onOptionsItemSelected(menuItem: MenuItem, navController: NavHostController) {
+    when (menuItem.id) {
+        AppMenus.ID_SETTING -> {
+            navController.navigateToSetting()
+        }
+
+        AppMenus.ID_ABOUT -> {
+            navController.navigateToAbout()
+        }
+
+        AppMenus.ID_PRIVACY_POLICY,
+        AppMenus.ID_TnC,
+        -> {
+            navController.navigateToWebScreen(menuItem.data!!.toString())
+        }
+    }
 }
 
-fun Destinations.routeWithParam(param: String): String {
-    return "${this.route}/$param"
+private fun NavHostController.navigateToWebScreen(url: String) {
+    navigate(Destinations.WebScreen.route + "?url=$url")
 }
+
+private fun NavHostController.navigateToSetting() {
+    navigate(Destinations.Settings.route)
+}
+
+private fun NavHostController.navigateToAbout() {
+    navigate(Destinations.About.route)
+}
+
